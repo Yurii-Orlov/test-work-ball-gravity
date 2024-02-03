@@ -6,17 +6,20 @@ namespace GameStateMachine
 
 	public class GameStateFactory
 	{
-		private readonly GameStateActive.Factory _activeStateFactory;
-		private readonly GameStateRestart.Factory _restartStateFactory;
-		private readonly GameStateStart.Factory _startStateFactory;
+		private readonly GameStateActive.Factory activeStateFactory;
+		private readonly GameStateRestart.Factory restartStateFactory;
+		private readonly GameStateStart.Factory startStateFactory;
+		private readonly GameStatePause.Factory pauseStateFactory;
 
 		public GameStateFactory(GameStateActive.Factory activeStateFactory,
 		                        GameStateRestart.Factory restartStateFactory,
-		                        GameStateStart.Factory startStateFactory)
+		                        GameStateStart.Factory startStateFactory,
+		                        GameStatePause.Factory pauseStateFactory)
 		{
-			_activeStateFactory = activeStateFactory;
-			_restartStateFactory = restartStateFactory;
-			_startStateFactory = startStateFactory;
+			this.activeStateFactory = activeStateFactory;
+			this.restartStateFactory = restartStateFactory;
+			this.startStateFactory = startStateFactory;
+			this.pauseStateFactory = pauseStateFactory;
 		}
 
 		internal GameStateEntity CreateState(GameStates gameState)
@@ -24,13 +27,16 @@ namespace GameStateMachine
 			switch (gameState)
 			{
 				case GameStates.Start:
-					return _startStateFactory.Create();
+					return startStateFactory.Create();
 
 				case GameStates.Active:
-					return _activeStateFactory.Create();
+					return activeStateFactory.Create();
 				
 				case GameStates.Restart:
-					return _restartStateFactory.Create();
+					return restartStateFactory.Create();
+				
+				case GameStates.Pause:
+					return pauseStateFactory.Create();
 			}
 
 			throw Assert.CreateException("Code should not be reached");

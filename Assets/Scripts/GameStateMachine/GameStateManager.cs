@@ -5,36 +5,36 @@ namespace GameStateMachine
 
 	public class GameStateManager : ITickable
 	{
-		private GameStates _currentGameState;
-		private GameStates _previousGameState;
-		private GameStateFactory _gameStateFactory;
-		private GameStateEntity _gameStateEntity;
+		private GameStates currentGameState;
+		private GameStates previousGameState;
+		private GameStateFactory gameStateFactory;
+		private GameStateEntity gameStateEntity;
 
 		[Inject]
 		public void Construct(GameStateFactory gameStateFactory)
 		{
-			_gameStateFactory = gameStateFactory;
+			this.gameStateFactory = gameStateFactory;
 		}
 
 		public void ChangeState(GameStates state)
 		{
-			if (_gameStateEntity != null)
+			if (gameStateEntity != null)
 			{
-				_gameStateEntity.Dispose();
-				_gameStateEntity = null;
+				gameStateEntity.Dispose();
+				gameStateEntity = null;
 			}
 
-			_previousGameState = _currentGameState;
-			_currentGameState = state;
+			previousGameState = currentGameState;
+			currentGameState = state;
 
-			_gameStateEntity = _gameStateFactory.CreateState(state);
-			_gameStateEntity.Initialize();
-			_gameStateEntity.Start();
+			gameStateEntity = gameStateFactory.CreateState(state);
+			gameStateEntity.Initialize();
+			gameStateEntity.Start();
 		}
 
 		public void Tick()
 		{
-			_gameStateEntity?.Tick();
+			gameStateEntity?.Tick();
 		}
 	}
 

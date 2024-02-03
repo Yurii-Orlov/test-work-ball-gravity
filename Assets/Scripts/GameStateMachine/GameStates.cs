@@ -5,7 +5,8 @@
 	{
 		Start,
 		Active,
-		Restart
+		Restart,
+		Pause
 	}
 
 }

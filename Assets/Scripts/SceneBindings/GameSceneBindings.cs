@@ -23,11 +23,13 @@ namespace SceneBindings
 			Container.BindFactory<GameStateActive, GameStateActive.Factory>().WhenInjectedInto<GameStateFactory>();
 			Container.BindFactory<GameStateRestart, GameStateRestart.Factory>().WhenInjectedInto<GameStateFactory>();
 			Container.BindFactory<GameStateStart, GameStateStart.Factory>().WhenInjectedInto<GameStateFactory>();
+			Container.BindFactory<GameStatePause, GameStatePause.Factory>().WhenInjectedInto<GameStateFactory>();
 		}
 
 		private void BindManagers()
 		{
 			Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
+			Container.BindInterfacesAndSelfTo<UIManager>().AsSingle();
 		}
 
 	}
