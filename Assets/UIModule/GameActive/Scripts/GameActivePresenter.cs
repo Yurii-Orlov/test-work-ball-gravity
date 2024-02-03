@@ -33,8 +33,14 @@ namespace UIModule.GameActive
 			view = SelfPage.GetComponent<GameActiveView>();
 			view.Init();
 			view.PauseGameClickHandler += OnPauseGameClickHandler;
+			view.ChangePlayerDirectionClickHandler += OnChangePlayerDirectionClickHandler;
 			
 			Hide();
+		}
+
+		private void OnChangePlayerDirectionClickHandler()
+		{
+			gameManager.ChangePlayerDirection();
 		}
 
 		private void OnPauseGameClickHandler()
@@ -61,6 +67,7 @@ namespace UIModule.GameActive
 			{
 				view.Dispose();
 				view.PauseGameClickHandler -= OnPauseGameClickHandler;
+				view.ChangePlayerDirectionClickHandler -= OnChangePlayerDirectionClickHandler;
 			}
 			
 			uiManager.RemovePage<GameActivePresenter>();

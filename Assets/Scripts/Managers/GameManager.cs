@@ -1,5 +1,6 @@
 ﻿using GameStateMachine;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 namespace Managers
@@ -38,6 +39,11 @@ namespace Managers
 		{
 			IsGameStarted.Value = true;
 			gameStateManager.ChangeState(GameStates.Active);
+		}
+
+		public void ChangePlayerDirection()
+		{
+			Debug.Log("Change player direction");
 		}
 
 	}

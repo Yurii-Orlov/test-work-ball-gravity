@@ -9,14 +9,22 @@ namespace UIModule.GameActive
 		public const string PREFAB_NAME = nameof(GameActiveView);
 
 		public event Action PauseGameClickHandler;
+		public event Action ChangePlayerDirectionClickHandler;
 
 		[SerializeField] private Button pauseGameBtn;
+		[SerializeField] private Button playerInputBtn;
 
 		public void Init()
 		{
 			pauseGameBtn.onClick.AddListener(PauseGameClicked);
+			playerInputBtn.onClick.AddListener(ChangePlayerDirectionClicked);
 		}
-		
+
+		private void ChangePlayerDirectionClicked()
+		{
+			ChangePlayerDirectionClickHandler?.Invoke();
+		}
+
 		private void PauseGameClicked()
 		{
 			PauseGameClickHandler?.Invoke();
@@ -25,6 +33,7 @@ namespace UIModule.GameActive
 		public void Dispose()
 		{
 			pauseGameBtn.onClick.RemoveListener(PauseGameClicked);
+			playerInputBtn.onClick.RemoveListener(ChangePlayerDirectionClicked);
 		}
 
 	}
