@@ -9,12 +9,10 @@ namespace GameStateMachine.States
 
 	public class GameStatePause : GameStateEntity
 	{
-		private readonly GameStateManager gameStateManager;
 		private readonly UIManager uiManager;
 
-		public GameStatePause(GameStateManager gameStateManager, UIManager uiManager)
+		public GameStatePause(UIManager uiManager)
 		{
-			this.gameStateManager = gameStateManager;
 			this.uiManager = uiManager;
 		}
 		
@@ -23,15 +21,6 @@ namespace GameStateMachine.States
 			Debug.Log("Pause game state started");
 			
 			uiManager.ShowPage<GamePausePresenter>();
-		}
-
-		public override void Initialize()
-		{
-
-		}
-
-		public override void Tick()
-		{
 		}
 
 		public override void Dispose()

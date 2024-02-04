@@ -8,12 +8,10 @@ namespace GameStateMachine.States
 
 	public class GameStateStart : GameStateEntity
 	{
-		private readonly GameStateManager gameStateManager;
 		private readonly UIManager uiManager;
 
-		public GameStateStart(GameStateManager gameStateManager, UIManager uiManager)
+		public GameStateStart(UIManager uiManager)
 		{
-			this.gameStateManager = gameStateManager;
 			this.uiManager = uiManager;
 		}
 		
@@ -22,15 +20,6 @@ namespace GameStateMachine.States
 			Debug.Log("Start game state started");
 			
 			uiManager.ShowPage<GameStartPresenter>();
-		}
-
-		public override void Initialize()
-		{
-
-		}
-
-		public override void Tick()
-		{
 		}
 
 		public override void Dispose()

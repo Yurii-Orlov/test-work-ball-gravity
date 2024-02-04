@@ -1,7 +1,7 @@
 ﻿using System;
 using GameStateMachine;
 using UniRx;
-using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Managers
@@ -9,12 +9,10 @@ namespace Managers
 
 	public class GameManager : IInitializable
 	{
-
 		public event Action PlayerNeedChangeDirection;
-
-
-		public ReactiveProperty<bool> IsGamePaused = new ReactiveProperty<bool>(true);
-		public ReactiveProperty<bool> IsGameStarted = new BoolReactiveProperty(false);
+		
+		public readonly ReactiveProperty<bool> IsGamePaused = new(true);
+		public readonly ReactiveProperty<bool> IsGameStarted = new BoolReactiveProperty(false);
 		
 		private readonly GameStateManager gameStateManager;
 
@@ -52,6 +50,11 @@ namespace Managers
 		public void ChangePlayerDirection()
 		{
 			PlayerNeedChangeDirection?.Invoke();
+		}
+
+		public void RestartGame()
+		{
+			SceneManager.LoadScene("Game");
 		}
 
 	}
