@@ -2,7 +2,6 @@ using Managers;
 using UniRx;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace GameLogic.Player
 {
@@ -11,9 +10,9 @@ namespace GameLogic.Player
 
 		private PlayerModel model;
 		private PlayerInput input;
+		private PlayerMove move;
 
 		private GameManager gameManager;
-		private float speed = 5f;
 		private Vector2 moveVector;
 		private bool isGamePaused;
 
@@ -23,8 +22,13 @@ namespace GameLogic.Player
 			this.gameManager = gameManager;
 			this.gameManager.IsGamePaused.ObserveEveryValueChanged(x => x.Value).Subscribe(xs => isGamePaused = xs).AddTo(this);
 			
-			model = new PlayerModel();
+			model = new PlayerModel()
+			{
+				IsDead = false,
+				Speed = 5
+			};
 			input = new PlayerInput(gameManager);
+			move = new PlayerMove(model.Speed, transform);
 			
 			input.MovePlayer += InputOnMovePlayer;
 		}
@@ -33,25 +37,13 @@ namespace GameLogic.Player
 		{
 			if (moveVector.y != 0 && isGamePaused == false)
 			{
-				MoveInRandomDirection();
+				move.MoveInRandomForwardAngle(moveVector);
 			}
 		}
 
 		private void InputOnMovePlayer(Vector2 vectorToMove)
 		{
 			moveVector = vectorToMove;
-		}
-
-		private void MoveInRandomDirection()
-		{
-			var randomAngle = Random.Range(-55f, -75f) * moveVector.y;
-			var radians = Mathf.Deg2Rad * randomAngle;
-
-			var movement = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians));
-			var playerTransform = transform;
-			var newPosition = (Vector2)playerTransform.position + movement * speed * Time.deltaTime;
-
-			playerTransform.position = newPosition;
 		}
 
 		private void OnDestroy()

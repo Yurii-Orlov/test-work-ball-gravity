@@ -4,6 +4,8 @@
 	public class PlayerModel
 	{
 		public bool IsDead;
+		public float Speed;
+
 	}
 
 }
