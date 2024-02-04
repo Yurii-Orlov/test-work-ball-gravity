@@ -35,7 +35,7 @@ namespace GameLogic.BlockSpawn
 
 		private void Update()
 		{
-			if (mainCamera == null)
+			if (mainCamera == null || blocks.Count == 0)
 			{
 				return;
 			}
